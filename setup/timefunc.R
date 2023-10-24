@@ -1,5 +1,5 @@
-timefunc <- function(qi = qitmp, starttime = global_year - 5, stoptime = global_year, ll = lltmp, ul = ultmp,
-                     data = rsdata, ylimmin = c(0, 100), onlyindex = FALSE, legplace = NULL) {
+timefunc <- function(qi = qitmp, starttime = global_year - 6, stoptime = global_year, ll = lltmp, ul = ultmp,
+                     data = rsdata, onlyindex = FALSE) {
   tmp <- data %>%
     filter(indexyear %in% paste(seq(starttime, stoptime, 1)) &
       !is.na(!!sym(qi)))
@@ -9,7 +9,6 @@ timefunc <- function(qi = qitmp, starttime = global_year - 5, stoptime = global_
       filter(ttype == "Index")
 
     byvar <- "vtype"
-    #  if (is.null(legplace)) legplace <- c(1, 22)
   }
   if (!onlyindex) {
     byvar <- "ttype"
@@ -33,19 +32,18 @@ timefunc <- function(qi = qitmp, starttime = global_year - 5, stoptime = global_
     geom_point(aes(col = unit), size = 3.5) +
     geom_hline(aes(yintercept = ll * 100, linetype = global_labnams[3]), col = global_colslimit[2]) +
     geom_hline(aes(yintercept = ul * 100, linetype = global_labnams[2]), col = global_colslimit[1]) +
-    scale_colour_manual(values = global_cols) +
-    # scale_linetype_manual(values = c(Prim = "solid", Target = "longdash")) +
-    # scale_shape_manual(values = c(Prim = 16, Target = NA)) +
-    # scale_linewidth_manual(values = c(Prim = 1.5, Target = 1)) +
+    scale_colour_manual(
+      values = global_cols,
+      guide = guide_legend(order = 1)
+    ) +
     scale_linetype_manual(
-      name = "limit", values = c("longdash", "longdash"), 
+      name = "limit", values = c("longdash", "longdash"),
       guide = guide_legend(override.aes = list(color = global_colslimit[c(2, 1)]))
     ) +
     theme_classic() +
     theme(
       text = element_text(size = global_figfontsize),
       legend.position = "bottom",
-      legend.box.margin = margin(c(0, 0, 0, 0)),
       legend.box = "vertical",
       legend.title = element_blank(),
       panel.grid.major.y = element_line(
@@ -54,9 +52,8 @@ timefunc <- function(qi = qitmp, starttime = global_year - 5, stoptime = global_
         linetype = 1
       )
     ) +
-    #guides(guide_legend(nrow = 2, byrow = F)) +
-    # scale_y_discrete(expand(0, 1)) +
-    scale_y_continuous(breaks = seq(0, 100, 10), limits = c(0, 100)) +
+    scale_x_discrete(expand = expansion(add = .1)) +
+    scale_y_continuous(breaks = seq(0, 100, 10), limits = c(0, 100), expand = c(0.05, 0.05)) +
     labs(y = "Proportion (%)", x = "Year")
   p
 }

@@ -17,6 +17,7 @@ library(forcats)
 library(hfmisc)
 library(here)
 library(scales)
+library(forcats)
 
 # desk stat
 library(tableone)
@@ -25,7 +26,5 @@ library(tableone)
 library(ggplot2)
 library(gridExtra)
 library(ggrepel)
-library(patchwork)
-library(scales)
-library(raster) # old plot
-library(plotrix) # old plot
+library(raster) # for map
+library(sp) # for map

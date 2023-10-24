@@ -37,13 +37,15 @@ barsummary <- function(qi = qitmp,
 
   p <- ggplot(data = all, aes(x = ttype, y = percent, fill = indexyear)) +
     geom_bar(stat = "identity", position = "dodge") +
-    # geom_label(aes(x = ttype, y = percent, label = ntot, group = indexyear), position=position_dodge(0.9), nudge.y = -0.5, fill = "white", size = global_figfontsizesmall / .pt) +
     ggtext::geom_richtext(aes(x = ttype, y = 1, label = ntot, group = indexyear), position = position_dodge(0.9), fill = "white", hjust = 0, size = (global_figfontsizesmall + 3) / .pt, angle = 90) +
-    scale_fill_manual(values = global_cols) +
+    scale_fill_manual(
+      values = global_cols,
+      guide = guide_legend(order = 1)
+    ) +
     geom_hline(aes(yintercept = ll * 100, linetype = global_labnams[3]), col = global_colslimit[2]) +
     geom_hline(aes(yintercept = ul * 100, linetype = global_labnams[2]), col = global_colslimit[1]) +
     scale_linetype_manual(
-      name = "limit", values = c("longdash", "longdash"), 
+      name = "limit", values = c("longdash", "longdash"),
       guide = guide_legend(override.aes = list(color = global_colslimit[c(2, 1)]), order = 2)
     ) +
     theme_classic() +
@@ -63,9 +65,6 @@ barsummary <- function(qi = qitmp,
         linetype = 1
       )
     ) +
-    guides(guide_legend(order = 1)) +
-    # coord_cartesian(clip = "off", ylim = c(0, 100)) +
-    # coord_flip() +
     scale_y_continuous(breaks = seq(0, 100, 10), limits = c(0, 100), expand = c(0, 0)) +
     scale_x_discrete(expand = c(0, 0)) +
     labs(y = "Proportion (%)")

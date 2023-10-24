@@ -59,12 +59,13 @@ source(here::here("munge/05-tg.R"))
 ## Save data
 
 save(file = here("data/clean-data/tg.RData"), list = c(
-  "tg_lan", "tg_overtime"
+  "tg", "tg_overtime"
 ))
 
 # Get map data ------------------------------------------------------------
 
+# swedenmap <- geodata::gadm(country = "SWE", level = 1, path = here("data/raw-data"))
 swedenmap <- getData("GADM", country = "SWE", level = 1)
 
 ## Save data
-saveRDS(swedenmap, file = "./meta-data/data/swedenmap.rds")
+saveRDS(swedenmap, file = here("data/meta-data/mapdata.rds"))

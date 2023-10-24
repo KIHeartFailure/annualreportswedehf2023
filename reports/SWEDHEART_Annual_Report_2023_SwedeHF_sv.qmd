@@ -44,7 +44,9 @@ options(knitr.kable.NA = "")
 source(here::here("setup/setup.R"))
 
 # load data
-# load(here("data/clean-data/data.RData"))
+load(here("data/clean-data/rsdata.RData"))
 ```           
 
-#{{< include src/base_tab.qmd >}}
+\blandscape
+{{< include src/summaryqi_sv.qmd >}}
+\elandscape

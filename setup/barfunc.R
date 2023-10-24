@@ -22,7 +22,7 @@ barfunc <- function(var, startime = global_startdtm, stoptime = global_stopdtm, 
     mutate(countynum = row_number()) %>%
     ungroup()
 
-  #maxwidth <- max(str_length(unitdata$county)) + 1
+  # maxwidth <- max(str_length(unitdata$county)) + 1
 
   percent_ntot <- unitdata %>%
     group_by(county, countynum, tot) %>%
@@ -34,7 +34,7 @@ barfunc <- function(var, startime = global_startdtm, stoptime = global_stopdtm, 
     mutate(
       percent = paste0(percent, "%"),
       ntot = paste0(ntot, " of ", comma(tot)),
-      #countrypad = paste0(str_pad(county, width = maxwidth, side = "left", use_width = FALSE, pad = " "), "  ", ntot)
+      # countrypad = paste0(str_pad(county, width = maxwidth, side = "left", use_width = FALSE, pad = " "), "  ", ntot)
       countrypad = paste0(county, "  ", ntot)
     )
 
@@ -54,7 +54,7 @@ barfunc <- function(var, startime = global_startdtm, stoptime = global_stopdtm, 
       text = element_text(size = global_figfontsize),
       legend.position = "bottom",
       legend.box = "vertical",
-      legend.margin=margin(),
+      legend.margin = margin(),
       legend.title = element_blank(),
       axis.ticks.y = element_blank(),
       axis.title.y = element_blank(),

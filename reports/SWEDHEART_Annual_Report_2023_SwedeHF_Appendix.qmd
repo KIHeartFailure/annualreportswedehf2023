@@ -97,7 +97,9 @@ including March 31 of the year following the relevant year are included.
 
 **Denominator incident coverage:** Individuals registered with heart failure (I11.0, I13.0, I13.2, I25.5, I42.0, I42.6, I42.7, I50.0, I50.1, I50.9) for the first time during the current year, either in SwedeHF or in the National Patient Register.
 
-COVERAGE AVAILABLE IN APRIL 2024.
+{{< include src/tg.qmd >}}
+
+{{< include src/tg_bar.qmd >}}
 
 \clearpage
 
@@ -162,7 +164,7 @@ piefunc(var = "vtype", type = c("2+-year follow-up"))
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0("Centre type by county, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - At index
 #|   - All registrations
 #| layout-ncol: 2
@@ -176,19 +178,13 @@ barfunc(var = "vtype", type = c("Index", "3-month follow-up", "1-year follow-up"
 
 \clearpage
 
+\blandscape
+
 # Quality Indicators
 
-The quality indicators LVEF, NT-proBNP, NYHA class and QoL EQ-5D as well as planned follow-up at a heart failure clinic are defined at index. The treatment quality indicators, including physical exercise, are defined at the follow-up visit 3 months after index. 
+{{< include src/summaryqi.qmd >}}
 
-The quality indicator follow-up visit at 3 months performed and documented 
-is defined within the time frame `r paste0(global_year - 1, "-07-01 - ", global_year, "-07-01")`.
-
-\clearpage
-
-#```{r, child = "./src/summaryqi.Rmd"}
-#```
-
-\clearpage
+\elandscape
 
 ```{r}
 #| cache: true
@@ -214,7 +210,7 @@ qinametmp <- qiinfo %>%
 #| label: fig-lveftid
 #| cache: true
 #| cache.comments: false
-#| fig-cap: !expr paste0("Trends in ", qinametmp, ", ", global_year - 5, "-", global_year)
+#| fig-cap: !expr paste0("Trends in ", qinametmp, ", ", global_year - 6, "-", global_year)
 #| fig-height: 7
 #| fig-width: 9
 #| out-width: "50%"
@@ -227,7 +223,7 @@ timefunc(onlyindex = TRUE)
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), ", ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - County
 #|   - Centre
 #| fig-height: 8
@@ -265,9 +261,9 @@ be either at enrollment or after 24 hours.
 #| label: fig-nttid
 #| cache: true
 #| cache.comments: false
-#| fig-cap: !expr paste0("Trends in ", qinametmp, ", ", global_year - 5, "-", global_year)
-#| fig-height: 5
-#| fig-width: 7
+#| fig-cap: !expr paste0("Trends in ", qinametmp, ", ", global_year - 6, "-", global_year)
+#| fig-height: 7
+#| fig-width: 9
 #| out-width: "50%"
 #| out-height: "50%"
 
@@ -279,7 +275,7 @@ timefunc(onlyindex = TRUE)
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), ", ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - County
 #|   - Centre
 #| fig-height: 8
@@ -316,7 +312,7 @@ qinametmp <- qiinfo %>%
 #| label: fig-nyhatid
 #| cache: true
 #| cache.comments: false
-#| fig-cap: !expr paste0("Trends in ", qinametmp, ", ", global_year - 5, "-", global_year)
+#| fig-cap: !expr paste0("Trends in ", qinametmp, ", ", global_year - 6, "-", global_year)
 #| fig-height: 7
 #| fig-width: 9
 #| out-width: "50%"
@@ -330,7 +326,7 @@ timefunc(onlyindex = TRUE)
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), ", ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - County
 #|   - Centre
 #| fig-height: 8
@@ -368,7 +364,7 @@ qinametmp <- qiinfo %>%
 #| label: fig-qoltid
 #| cache: true
 #| cache.comments: false
-#| fig-cap: !expr paste0("Trends in ", qinametmp, ", ", global_year - 5, "-", global_year)
+#| fig-cap: !expr paste0("Trends in ", qinametmp, ", ", global_year - 6, "-", global_year)
 #| fig-height: 7
 #| fig-width: 9
 #| out-width: "50%"
@@ -382,7 +378,7 @@ timefunc(onlyindex = TRUE)
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), ", ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - County
 #|   - Centre
 #| fig-height: 8
@@ -415,19 +411,19 @@ qinametmp <- qiinfo %>%
 
 **Denominator:** All index registrations where the patient is alive at 3 months.
 
-*In the figure `r paste0("Trends in ", qinametmp, ", ", global_year - 5, "-", global_year)` only index registrations until `r paste0(global_year, "-07-01")` are included in `r global_year`. In other presentations the time interval for the index is `r paste0(global_year - 1, "-07-01 - ", global_year, "-07-01")`.*
+*In the figure `r paste0("Trends in ", qinametmp, ", ", global_year - 6, "-", global_year)` only index registrations until `r paste0(global_year, "-07-01")` are included in `r global_year`. In other presentations the time interval for the index is `r paste0(global_year - 1, "-07-01 - ", global_year, "-07-01")`.*
 
 ```{r}
 #| label: fig-uppf3tid
 #| cache: true
 #| cache.comments: false
-#| fig-cap: !expr paste0("Trends in ", qinametmp, ", ", global_year - 5, "-", global_year)
+#| fig-cap: !expr paste0("Trends in ", qinametmp, ", ", global_year - 6, "-", global_year)
 #| fig-height: 7
 #| fig-width: 9
 #| out-width: "50%"
 #| out-height: "50%"
 
-timefunc(onlyindex = TRUE, legplace = c(1, 52))
+timefunc(onlyindex = TRUE)
 ```     
 
 ```{r}
@@ -435,7 +431,7 @@ timefunc(onlyindex = TRUE, legplace = c(1, 52))
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), ", ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - County
 #|   - Centre
 #| fig-height: 8
@@ -475,7 +471,7 @@ qinametmp <- qiinfo %>%
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0("Trends in ", qinametmp)
-#| fig-subcap: !expr c(paste0(global_year - 5, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
+#| fig-subcap: !expr c(paste0(global_year - 6, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
 #| fig-height: 7
 #| fig-width: 9
 #| layout-nrow: 2
@@ -492,7 +488,7 @@ barsummary(unit = "Primary care")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by county, ", global_year)
-#| fig-subcap: !expr c(paste0(global_year - 5, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
+#| fig-subcap: !expr c(paste0(global_year - 6, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
 #| layout-nrow: 2
 #| layout-ncol: 2
 #| fig-height: 8
@@ -509,7 +505,7 @@ qifunc(type = "2+-year follow-up", unit = "county")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by centre, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -556,7 +552,7 @@ has been documented. If LVEF is missing, last observation is carried forward.
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by county, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -577,7 +573,7 @@ qifunc(type = "2+-year follow-up", unit = "county")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by centre, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -624,13 +620,13 @@ and ARNIs has been documented. If LVEF is missing, last observation is carried f
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0("Trends in ", qinametmp)
-#| fig-subcap: !expr c(paste0(global_year - 5, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
+#| fig-subcap: !expr c(paste0(global_year - 6, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
 #| fig-height: 7
 #| fig-width: 9
 #| layout-nrow: 2
 #| layout-ncol: 2
 
-timefunc(ylimmin = c(70, 100), legplace = c(1, 75))
+timefunc()
 barsummary(unit = c("Hospital", "Primary care"))
 barsummary(unit = "Hospital")
 barsummary(unit = "Primary care")
@@ -641,7 +637,7 @@ barsummary(unit = "Primary care")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by county, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -662,7 +658,7 @@ qifunc(type = "2+-year follow-up", unit = "county")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by centre, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -708,13 +704,13 @@ where information on the prescription of ARNIs has been documented. If LVEF is m
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0("Trends in ", qinametmp)
-#| fig-subcap: !expr c(paste0(global_year - 5, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
+#| fig-subcap: !expr c(paste0(global_year - 6, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
 #| fig-height: 7
 #| fig-width: 9
 #| layout-nrow: 2
 #| layout-ncol: 2
 
-timefunc(legplace = c(1, 65))
+timefunc()
 barsummary(unit = c("Hospital", "Primary care"))
 barsummary(unit = "Hospital")
 barsummary(unit = "Primary care")
@@ -725,7 +721,7 @@ barsummary(unit = "Primary care")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by county, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -746,7 +742,7 @@ qifunc(type = "2+-year follow-up", unit = "county")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by centre, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -792,13 +788,13 @@ and where the prescription of beta-blockers has been documented. If LVEF is miss
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0("Trends in ", qinametmp)
-#| fig-subcap: !expr c(paste0(global_year - 5, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
+#| fig-subcap: !expr c(paste0(global_year - 6, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
 #| fig-height: 7
 #| fig-width: 9
 #| layout-nrow: 2
 #| layout-ncol: 2
 
-timefunc(ylimmin = c(70, 100), legplace = c(1, 75))
+timefunc()
 barsummary(unit = c("Hospital", "Primary care"))
 barsummary(unit = "Hospital")
 barsummary(unit = "Primary care")
@@ -809,7 +805,7 @@ barsummary(unit = "Primary care")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by county, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -830,7 +826,7 @@ qifunc(type = "2+-year follow-up", unit = "county")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by centre, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -876,7 +872,7 @@ where information on the prescription of MRA has been documented. If LVEF is mis
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0("Trends in ", qinametmp)
-#| fig-subcap: !expr c(paste0(global_year - 5, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
+#| fig-subcap: !expr c(paste0(global_year - 6, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
 #| fig-height: 7
 #| fig-width: 9
 #| layout-nrow: 2
@@ -893,7 +889,7 @@ barsummary(unit = "Primary care")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by county, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -914,7 +910,7 @@ qifunc(type = "2+-year follow-up", unit = "county")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by centre, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -960,7 +956,7 @@ information on the prescription of SGLT2 inhibitors has been documented. If LVEF
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by county, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -981,7 +977,7 @@ qifunc(type = "2+-year follow-up", unit = "county")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by centre, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -1028,7 +1024,7 @@ information on the prescription of SGLT2 inhibitors has been documented. If LVEF
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by county, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -1049,7 +1045,7 @@ qifunc(type = "2+-year follow-up", unit = "county")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by centre, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -1096,7 +1092,7 @@ information on the prescription of SGLT2 inhibitors has been documented. If LVEF
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by county, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -1117,7 +1113,7 @@ qifunc(type = "2+-year follow-up", unit = "county")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by centre, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -1168,7 +1164,7 @@ overestimated. If LVEF, QRS duration or LBBB are missing, last observation is ca
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0("Trends in ", qinametmp)
-#| fig-subcap: !expr c(paste0(global_year - 5, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
+#| fig-subcap: !expr c(paste0(global_year - 6, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
 #| fig-height: 7
 #| fig-width: 9
 #| layout-nrow: 2
@@ -1185,7 +1181,7 @@ barsummary(unit = "Primary care")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by county, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -1206,7 +1202,7 @@ qifunc(type = "2+-year follow-up", unit = "county")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by centre, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -1251,13 +1247,13 @@ or < 40% (semiquantitative LVEF documented) and with a ICD (with or without CRT)
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0("Trends in ", qinametmp)
-#| fig-subcap: !expr c(paste0(global_year - 5, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
+#| fig-subcap: !expr c(paste0(global_year - 6, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
 #| fig-height: 7
 #| fig-width: 9
 #| layout-nrow: 2
 #| layout-ncol: 2
 
-timefunc(legplace = c(1, 90))
+timefunc()
 barsummary(unit = c("Hospital", "Primary care"))
 barsummary(unit = "Hospital")
 barsummary(unit = "Primary care")
@@ -1268,7 +1264,7 @@ barsummary(unit = "Primary care")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by county, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -1289,7 +1285,7 @@ qifunc(type = "2+-year follow-up", unit = "county")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by centre, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -1334,13 +1330,13 @@ physical exercise for HF has been documented.
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0("Trends in ", qinametmp)
-#| fig-subcap: !expr c(paste0(global_year - 5, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
+#| fig-subcap: !expr c(paste0(global_year - 6, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
 #| fig-height: 7
 #| fig-width: 9
 #| layout-nrow: 2
 #| layout-ncol: 2
 
-timefunc(legplace = c(1, 90))
+timefunc()
 barsummary(unit = c("Hospital", "Primary care"))
 barsummary(unit = "Hospital")
 barsummary(unit = "Primary care")
@@ -1351,7 +1347,7 @@ barsummary(unit = "Primary care")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by county, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'
@@ -1372,7 +1368,7 @@ qifunc(type = "2+-year follow-up", unit = "county")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by centre, ", global_year)
-#| fig-subcap: 
+#| fig-subcap:
 #|   - 'Index'
 #|   - '3-month follow-up'
 #|   - '1-year follow-up'

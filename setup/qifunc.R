@@ -34,10 +34,6 @@ qifunc <- function(qi = qitmp, startime = global_startdtm, stoptime = global_sto
     mutate(byvar = 2) %>%
     rename(unit = hfdurimp)
 
-  # if (unit == "county") {
-  #  hfdur <- hfdur %>% mutate(unit = str_replace_all(unit, "Duration HF", "Dur HF"))
-  # }
-
   # per vtyp
   vtype <- tmp %>%
     filter(!is.na(vtype)) %>%
@@ -84,43 +80,41 @@ qifunc <- function(qi = qitmp, startime = global_startdtm, stoptime = global_sto
 
   all <- all %>%
     mutate(
-      #colsvar = case_when(
-      #  byvar == 4 ~ 2,
-      #  byvar %in% c(1, 2, 3) ~ 1,
-      #  is.na(byvar) ~ 3
-      #),
       cols = case_when(
         byvar == 4 ~ global_cols[2],
         byvar %in% c(1, 2, 3) ~ global_cols[1],
-        is.na(byvar) ~ "white"),
+        is.na(byvar) ~ "white"
+      ),
       ntot = if_else(!is.na(byvar), paste0(comma(n), " of ", comma(tot)), ""),
       per = if_else(!is.na(byvar), paste0(fn(percent, 0), "%"), ""),
       row = n():1
     ) %>%
     arrange(desc(row))
 
-  all <- all %>% 
-    mutate(unit = forcats::fct_reorder(unit, row), 
-           unitpad = paste0(unit, "  ", ntot))
-  
+  all <- all %>%
+    mutate(
+      unit = forcats::fct_reorder(unit, row),
+      unitpad = paste0(unit, "  ", ntot)
+    )
+
   maxrow <- max(all$row)
-  
-  if (maxrow > 60){
+
+  if (maxrow > 60) {
     sizeuse <- 9
     dodgenr <- 2
     breaksx <- c(0, 25, 50, 75, 100)
   }
-  if (maxrow <= 60 & maxrow > 30){
+  if (maxrow <= 60 & maxrow > 30) {
     sizeuse <- 9
     dodgenr <- 1
     breaksx <- seq(0, 100, 20)
   }
-  if (maxrow <= 30){
+  if (maxrow <= 30) {
     sizeuse <- 14
     dodgenr <- 1
     breaksx <- seq(0, 100, 20)
   }
-  
+
   p <- ggplot(data = all, aes(x = row, y = percent, fill = cols)) +
     geom_bar(stat = "identity", show.legend = FALSE) +
     coord_flip() +
@@ -129,20 +123,19 @@ qifunc <- function(qi = qitmp, startime = global_startdtm, stoptime = global_sto
     geom_hline(aes(yintercept = ul * 100, linetype = global_labnams[2]), col = global_colslimit[1]) +
     scale_linetype_manual(
       name = "limit", values = c("longdash", "longdash"),
-      guide = guide_legend(override.aes = list(color = global_colslimit[c(2, 1)]), nrow = 2)
+      guide = guide_legend(override.aes = list(color = global_colslimit[c(2, 1)]))
     ) +
     theme_classic() +
     theme(
       text = element_text(size = global_figfontsize),
       legend.position = "bottom",
-      legend.box.margin=margin(c(0, 0, 0, 0)),
+      legend.margin = margin(0, 100, 0, 0), # move legend to right otherwise outside fig
       legend.title = element_blank(),
       axis.ticks.y = element_blank(),
       axis.title.y = element_blank(),
       axis.text.y = element_text(hjust = 1, colour = "black", size = sizeuse),
       axis.line.y = element_line(colour = "white")
     ) +
-    #guides(guide_legend(nrow = 2)) +
     scale_y_continuous(breaks = breaksx, limits = c(0, 100.01), expand = c(0, 0)) +
     scale_x_continuous(breaks = c(all$row), labels = all$unitpad, expand = c(0, 0), sec.axis = dup_axis(labels = all$per), guide = guide_axis(n.dodge = dodgenr)) +
     labs(y = "Proportion (%)")

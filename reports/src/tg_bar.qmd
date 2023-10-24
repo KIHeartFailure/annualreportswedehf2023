@@ -1,0 +1,176 @@
+```{r}
+#| label: fig-tg
+#| cache: true
+#| cache.comments: false
+#| fig-cap: Coverage by county
+#| fig-subcap: !expr c(paste0("Prevalent (map), ", global_year), paste0("Incident (map), ", global_year - 1), paste0("Prevalent, ", global_year), paste0("Incident, ", global_year - 1))
+#| layout-ncol: 2
+#| layout-nrow: 2
+#| fig-height: 8
+#| fig-width: 7
+
+# Maps
+
+geo <- tg %>%
+  filter(type == "county") %>%
+  mutate(
+    p_cat = case_when(
+      p <= 5 ~ 1,
+      p <= 10 ~ 2,
+      p <= 20 ~ 3,
+      p <= 30 ~ 4,
+      p <= 40 ~ 5,
+      p <= 50 ~ 6,
+      p <= 60 ~ 7
+    ),
+    regnums = str_sub(X1, 1, 2),
+    county_mapnr = case_when(
+      regnums == "01" ~ 15,
+      regnums == "03" ~ 16,
+      regnums == "04" ~ 14,
+      regnums == "05" ~ 12,
+      regnums == "06" ~ 7,
+      regnums == "07" ~ 9,
+      regnums == "08" ~ 8,
+      regnums == "09" ~ 4,
+      regnums == "10" ~ 1,
+      regnums == "12" ~ 13,
+      regnums == "13" ~ 5,
+      regnums == "14" ~ 21,
+      regnums == "17" ~ 17,
+      regnums == "18" ~ 11,
+      regnums == "19" ~ 20,
+      regnums == "20" ~ 2,
+      regnums == "21" ~ 3,
+      regnums == "22" ~ 19,
+      regnums == "23" ~ 6,
+      regnums == "24" ~ 18,
+      regnums == "25" ~ 10
+    )
+  )
+
+swedenmap <- readRDS(file = here("data/meta-data/mapdata.rds"))
+
+# c(bottom, left, top, right) default c(5, 4, 4, 2) + 0.1.
+par(mar = c(0, 0, 0, 0) + 0.1)
+
+mapcols <- global_cols[1:7]
+
+mapdata <- geo %>%
+  arrange(county_mapnr)
+
+plot(swedenmap, col = mapcols[mapdata %>%
+  filter(typetg == "Prevalent") %>%
+  pull(p_cat)], border = 0)
+legend("topright", bty = "n", border = mapcols, fill = mapcols, legend = c("0-5%", "6-10%", "11-20%", "21-30%", "31-40%", "41-50%", "51-60%"))
+
+plot(swedenmap, col = mapcols[mapdata %>%
+  filter(typetg == "Incident") %>%
+  pull(p_cat)], border = 0)
+legend("topright", bty = "n", border = mapcols, fill = mapcols, legend = c("0-5%", "6-10%", "11-20%", "21-30%", "31-40%", "41-50%", "51-60%"))
+
+# Bars
+
+tgfunc <- function(tgtype, ttype = "county") {
+  empty <- tibble(
+    n = 0,
+    tot = 0,
+    p = 0,
+    name = ""
+  )
+
+  unitdata <- tg %>%
+    filter(tgtype == typetg & type == ttype & tot >= 10) %>%
+    arrange(desc(p), name)
+
+  all <- bind_rows(
+    tg %>% filter(tgtype == typetg & name == "Sweden"),
+    empty,
+    unitdata
+  )
+
+  all <- all %>%
+    mutate(
+      row = n():1,
+      cols = case_when(
+        name == "Sweden" ~ global_cols[1],
+        name == "" ~ "white",
+        TRUE ~ global_cols[2],
+      )
+    ) %>%
+    mutate(
+      name = forcats::fct_inorder(name),
+      per = if_else(name != "", paste0(fn(p, dig = 0), "%"), ""),
+      ntot = if_else(name != "", paste0(comma(n), " of ", comma(tot)), ""),
+      unitpad = paste0(name, "  ", ntot)
+    )
+
+  maxrow <- nrow(all)
+
+  if (maxrow > 60) {
+    sizeuse <- 9
+    dodgenr <- 2
+    breaksx <- c(0, 25, 50, 75, 100)
+  }
+  if (maxrow <= 60 & maxrow > 30) {
+    sizeuse <- 9
+    dodgenr <- 1
+    breaksx <- seq(0, 100, 20)
+  }
+  if (maxrow <= 30) {
+    sizeuse <- 14
+    dodgenr <- 1
+    breaksx <- seq(0, 100, 20)
+  }
+
+  p <- ggplot(data = all, aes(x = row, y = p, fill = cols)) +
+    geom_bar(stat = "identity", show.legend = FALSE) +
+    coord_flip() +
+    scale_fill_manual(values = c(global_cols[c(1, 2)], "white")) +
+    theme_classic() +
+    theme(
+      text = element_text(size = global_figfontsize),
+      legend.position = "bottom",
+      legend.margin = margin(0, 100, 0, 0), # move legend to right otherwise outside fig
+      legend.title = element_blank(),
+      axis.ticks.y = element_blank(),
+      axis.title.y = element_blank(),
+      axis.text.y = element_text(hjust = 1, colour = "black", size = sizeuse),
+      axis.line.y = element_line(colour = "white")
+    ) +
+    scale_y_continuous(breaks = breaksx, limits = c(0, 100.01), expand = c(0, 0)) +
+    scale_x_continuous(breaks = c(all$row), labels = all$unitpad, expand = c(0, 0), sec.axis = dup_axis(labels = all$per), guide = guide_axis(n.dodge = dodgenr)) +
+    labs(y = "Proportion (%)")
+  p
+}
+
+tgfunc(tgtype = "Prevalent", ttype = "county")
+# tgfunc(tgtype = "Prevalent", ttype = "centre")
+tgfunc(tgtype = "Incident", ttype = "county")
+# tgfunc(tgtype = "Incident", ttype = "centre")
+```
+
+```{r}
+#| label: tbl-tg
+#| cache: true
+#| cache.comments: false
+#| dependson: fig-tg
+#| tbl-cap: !expr paste0("Coverage by centre, ", global_year, " (prevalent)/", global_year -1 , " (incident)")
+
+tgcentre <- tg %>%
+  filter(type %in% c("centre", "riket") & tot >= 10) %>%
+  mutate(
+    per = paste0(fn(p, dig = 0), "%"),
+    ntot = paste0(comma(n), " of ", comma(tot))
+  ) %>%
+  select(name, typetg, type, per, ntot) %>%
+  pivot_wider(names_from = typetg, values_from = c(per, ntot), values_fill = "-") %>%
+  arrange(desc(type), name) %>%
+  mutate(name = forcats::fct_inorder(name)) %>%
+  select(name, per_Prevalent, ntot_Prevalent, per_Incident, ntot_Incident)
+
+colnames(tgcentre) <- c("Centre", rep(c("Proportion (%)", "n of N"), 2))
+
+default_kable(tgcentre, align = c("l", rep("c", ncol(tgcentre) - 1)), longtable = T, font_size = 6.9) %>%
+  add_header_above(c(" " = 1, "Prevalent" = 2, "Inceident" = 2))
+```

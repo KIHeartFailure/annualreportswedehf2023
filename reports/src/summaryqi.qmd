@@ -1,7 +1,13 @@
+```{r allki, cache=cacheon, fig.cap=, fig.width=9, fig.height=6}
+#| label: fig-allki
+#| cache: true
+#| cache.comments: false
+#| fig-cap: !expr paste0("Sweden, all ", nrow(qiinfo), " quality indicators ",  global_year)
+#| fig-height: 6
+#| fig-width: 10
+#| out-width: "125%"
+#| out-height: "125%"
 
-\blandscape
-
-```{r allki, cache=cacheon, fig.cap=paste0("Sweden, all ", nrow(qiinfo), " quality indicators ",  global_year), fig.width=9, fig.height=6}
 summaryqifunchelper <- function(qi) {
   if (!!sym(qi) == "qi_followreg3m") {
     tmp <- rsdata %>%
@@ -18,7 +24,7 @@ summaryqifunchelper <- function(qi) {
   }
   tmp <- tmp %>%
     filter(
-      !is.na(hfdurindex) &
+      !is.na(hfdurimp) &
         ttype == qiinfo %>%
           filter(qivar == qi) %>%
           pull(timepoint)
@@ -26,7 +32,7 @@ summaryqifunchelper <- function(qi) {
 
   tmp <- tmp %>%
     filter(!is.na(!!sym(qi))) %>%
-    group_by(hfdurindex, .drop = F) %>%
+    group_by(hfdurimp, .drop = F) %>%
     count(!!sym(qi), .drop = F) %>%
     mutate(
       tot = sum(n),
@@ -44,16 +50,16 @@ stat2 <- bind_rows(stat)
 
 stat2 <- stat2 %>%
   mutate(
-    hfdurindex = replace_na(hfdurindex, levels(stat2$hfdurindex)[2]),
+    hfdurimp = replace_na(hfdurimp, levels(stat2$hfdurimp)[2]),
     cols = case_when(
-      hfdurindex == levels(stat2$hfdurindex)[1] ~ global_cols[1],
-      hfdurindex == levels(stat2$hfdurindex)[2] ~ global_cols[2]
+      hfdurimp == levels(stat2$hfdurimp)[1] ~ global_cols[1],
+      hfdurimp == levels(stat2$hfdurimp)[2] ~ global_cols[2]
     )
   )
 
 stat2 <- stat2 %>%
   mutate(
-    ntot = paste0(fnbm(n), " of ", fnbm(tot)),
+    ntot = paste0(comma(n), " of ", comma(tot)),
     per = paste0(percent, "%"),
     per = if_else(tot < 10, "", per),
     ntot = if_else(tot < 10, "", ntot),
@@ -67,11 +73,10 @@ stat2$qishortname <- forcats::fct_reorder(stat2$qishortname, stat2$row)
 
 cexmy <- 0.9
 # c(bottom, left, top, right)
-par(mar = c(10, 4, 3.9, 0) + 0.1)
-
+par(mar = c(10.2, 4, 3.9, 0) + 0.1)
 
 b <- barplot(stat2$percent,
-  space = c(0, rep(c(0, 1), 14), 0),
+  space = c(0, rep(c(0, 1), 16), 0),
   axes = FALSE,
   ylab = "Proportion (%)",
   xlab = "",
@@ -83,7 +88,7 @@ b <- barplot(stat2$percent,
   las = 2, cex.names = cexmy
 )
 
-axis(2, seq(0, 100, 20), cex.axis = cexmy, las = 2)
+axis(2, seq(0, 100, 10), cex.axis = cexmy, las = 2)
 
 bplace <- b[c(seq(1, length(b), 2))]
 
@@ -98,7 +103,7 @@ for (i in seq_along(bplace)) {
   )
 }
 
-levhf <- levels(stat2$hfdurindex)
+levhf <- levels(stat2$hfdurimp)
 # levhf <- if_else(levhf == "Duration HF > 6 mån vid index", "Duration HF \u2265 6 mån vid index", levhf)
 
 legend("topright", levhf, fill = global_cols[c(1, 2)], border = global_cols[c(1, 2)], bty = "n", cex = cexmy)
@@ -114,32 +119,31 @@ axis(1,
 )
 
 axis(1,
-  at = b[5] + (b[6] - b[5]) / 2,
-  labels = "Index", line = 6.1, tick = FALSE, cex.axis = cexmy, gap.axis = -10000000, las = 1
+  at = b[4] + (b[5] - b[4]) / 2,
+  labels = "Index", line = 6.7, tick = FALSE, cex.axis = cexmy, gap.axis = -10000000, las = 1
 )
 
 axis(1,
-  at = b[22],
-  labels = "3-month follow-up", line = 6.1, tick = FALSE, cex.axis = cexmy, gap.axis = -10000000, las = 1
+  at = b[22] + (b[23] - b[22]) / 2,
+  labels = "3-month follow-up", line = 6.7, tick = FALSE, cex.axis = cexmy, gap.axis = -10000000, las = 1
 )
 
-posarrow <- -47.5
-arrows(b[1], posarrow, b[4], posarrow, xpd = TRUE, code = 1, length = 0.1)
-arrows(b[7], posarrow, b[10], posarrow, xpd = TRUE, code = 2, length = 0.1)
+posarrow <- -52.2
+adjmin <- 0
+arrows(b[1] + adjmin, posarrow, b[3], posarrow, xpd = TRUE, code = 1, length = 0.1)
+arrows(b[6], posarrow, b[8] - adjmin, posarrow, xpd = TRUE, code = 2, length = 0.1)
 
-arrows(b[13], posarrow, b[18], posarrow, xpd = TRUE, code = 1, length = 0.1)
-arrows(b[26], posarrow, b[30], posarrow, xpd = TRUE, code = 2, length = 0.1)
+arrows(b[11] + adjmin, posarrow, b[20], posarrow, xpd = TRUE, code = 1, length = 0.1)
+arrows(b[25], posarrow, b[34] - adjmin, posarrow, xpd = TRUE, code = 2, length = 0.1)
 
 legend("bottom",
-  inset = c(-0, -.65), xpd = NA,
-  legend = labnams[2:3],
+  inset = c(-0, -.67), xpd = NA,
+  legend = rev(global_labnams[2:3]),
   lty = 2,
   lwd = 1,
-  col = global_colslimit,
+  col = rev(global_colslimit),
   bty = "n",
   cex = cexmy,
   horiz = TRUE
 )
 ```
-
-\elandscape
