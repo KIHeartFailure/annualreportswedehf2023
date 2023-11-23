@@ -75,7 +75,7 @@ Counties or centres with less than 10 observations in the denominator are not pr
 
 The R code that has generated this report is found:
 
-https://github.com/KIHeartFailure/annualreportswedehf2023. 
+https://github.com/KIHeartFailure/swedehf-annualreport-2023. 
 
 \clearpage
 
