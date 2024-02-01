@@ -1,5 +1,5 @@
-```{r allki-sv, cache=cacheon, fig.cap=, fig.width=9, fig.height=6}
-#| label: fig-allki
+```{r}
+#| label: fig-allki-sv
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0("Riket, alla ", nrow(qiinfo), " kvalitetsindikatorer ",  global_year)

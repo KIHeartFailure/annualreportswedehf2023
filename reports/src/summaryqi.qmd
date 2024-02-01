@@ -1,4 +1,4 @@
-```{r allki, cache=cacheon, fig.cap=, fig.width=9, fig.height=6}
+```{r}
 #| label: fig-allki
 #| cache: true
 #| cache.comments: false

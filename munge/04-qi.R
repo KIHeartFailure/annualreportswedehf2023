@@ -63,7 +63,7 @@ rsdata <- rsdata %>%
     qi_crt = case_when(
       is.na(efcrt_catimp) | efcrt_catimp != "<40/<=35" ~ NA_real_,
       # is.na(QRS_WIDTHimp) | is.na(LEFT_BRANCH_BLOCKimp) | is.na(EKG_RHYTHMimp) ~ NA_real_,
-      # FOLLOWUP_UNIT == "DECEASED" ~ NA_real_,
+      FOLLOWUP_UNIT == "DECEASED" ~ NA_real_,
       is.na(DEVICE_THERAPY) ~ NA_real_,
       DEVICE_THERAPY %in% c("CRT", "CRT_D") ~ 1,
       QRS_WIDTHimp > 130 & LEFT_BRANCH_BLOCKimp == "YES" ~ 0,
@@ -73,7 +73,7 @@ rsdata <- rsdata %>%
     # icd
     qi_icd = case_when(
       is.na(efcrt_catimp) | efcrt_catimp != "<40/<=35" ~ NA_real_,
-      # FOLLOWUP_UNIT == "DECEASED" ~ NA_real_,
+      FOLLOWUP_UNIT == "DECEASED" ~ NA_real_,
       is.na(DEVICE_THERAPY) ~ NA_real_,
       DEVICE_THERAPY %in% c("ICD", "CRT_D") ~ 1,
       TRUE ~ 0

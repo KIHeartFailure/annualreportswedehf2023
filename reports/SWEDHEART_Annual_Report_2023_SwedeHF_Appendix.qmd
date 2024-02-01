@@ -49,7 +49,7 @@ source(here::here("setup/setup.R"))
 
 # load data
 load(here("data/clean-data/rsdata.RData"))
-load(here("data/clean-data/tg.RData"))
+#load(here("data/clean-data/tg.RData"))
 ```           
 
 \clearpage
@@ -97,9 +97,7 @@ including March 31 of the year following the relevant year are included.
 
 **Denominator incident coverage:** Individuals registered with heart failure (I11.0, I13.0, I13.2, I25.5, I42.0, I42.6, I42.7, I50.0, I50.1, I50.9) for the first time during the current year, either in SwedeHF or in the National Patient Register.
 
-{{< include src/tg.qmd >}}
-
-{{< include src/tg_bar.qmd >}}
+WILL BE AVAILABLE IN APRIL.
 
 \clearpage
 
@@ -430,7 +428,7 @@ timefunc(onlyindex = TRUE)
 #| label: fig-uppf3
 #| cache: true
 #| cache.comments: false
-#| fig-cap: !expr paste0(firstcap(qinametmp), ", ", global_year)
+#| fig-cap: !expr paste0(firstcap(qinametmp), ", ", global_year - 1, "/", global_year)
 #| fig-subcap:
 #|   - County
 #|   - Centre
@@ -439,8 +437,8 @@ timefunc(onlyindex = TRUE)
 #| layout-nrow: 1
 #| layout-ncol: 2
 
-qifunc(type = "Index", unit = "county")
-qifunc(type = "Index")
+qifunc(type = "Index", unit = "county", startime = ymd(paste0(global_year - 1, "-07-01 - ")), stoptime = ymd(paste0(global_year, "-07-01")))
+qifunc(type = "Index", startime = ymd(paste0(global_year - 1, "-07-01 - ")), stoptime = ymd(paste0(global_year, "-07-01")))
 ```     
 
 \clearpage
@@ -488,7 +486,11 @@ barsummary(unit = "Primary care")
 #| cache: true
 #| cache.comments: false
 #| fig-cap: !expr paste0(firstcap(qinametmp), " by county, ", global_year)
-#| fig-subcap: !expr c(paste0(global_year - 6, "-", global_year), paste0(global_year - 2, "-", global_year, ", Sweden"), paste0(global_year - 2, "-", global_year, ", Hospital"), paste0(global_year - 2, "-", global_year, ", Primary care"))
+#| fig-subcap:
+#|   - 'Index'
+#|   - '3-month follow-up'
+#|   - '1-year follow-up'
+#|   - '2+-year follow-up'
 #| layout-nrow: 2
 #| layout-ncol: 2
 #| fig-height: 8

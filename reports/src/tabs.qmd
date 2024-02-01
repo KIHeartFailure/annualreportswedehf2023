@@ -137,6 +137,8 @@ for (i in seq_along(tabvars)) {
 
 tab <- tab %>%
   mutate(
+    level = str_replace_all(level, fixed("HF duration "), ""),
+    level = str_replace_all(level, fixed(" mo at index"), ""),
     var = if_else(!is.na(level) & !is.na(var),
       paste0(var, " ", level),
       coalesce(var, paste0("  ", level))
@@ -172,9 +174,7 @@ tab <- tab %>%
       var == "S_FERRITIN" ~ "Ferritin (ug/l), median [Q1-Q3]",
       TRUE ~ var
     ),
-    var = str_replace_all(var, fixed("\u2265"), "$\\geq$"),
-    var = str_replace_all(var, fixed("HF duration "), ""),
-    var = str_replace_all(var, fixed(" mo at index"), "")
+    var = str_replace_all(var, fixed("\u2265"), "$\\geq$")
   ) %>%
   mutate(across(everything(), ~ str_replace_all(.x, fixed("(%)"), "(\\%)"))) %>%
   select(-level)
@@ -222,6 +222,8 @@ for (i in seq_along(tabvars)) {
 
 tab <- tab %>%
   mutate(
+    level = str_replace_all(level, fixed("HF duration "), ""),
+    level = str_replace_all(level, fixed(" mo at index"), ""),
     var = if_else(!is.na(level) & !is.na(var),
       paste0(var, " ", level),
       coalesce(var, paste0("  ", level))
@@ -257,8 +259,6 @@ tab <- tab %>%
       var == "S_FERRITIN" ~ "Ferritin (ug/l), median [Q1-Q3]",
       TRUE ~ var
     ),
-    level = str_replace_all(level, fixed("HF duration "), ""),
-    level = str_replace_all(level, fixed(" mo at index"), ""),
     level = str_replace_all(level, fixed("\u2265"), "$\\geq$")
   ) %>%
   mutate(across(everything(), ~ str_replace_all(.x, fixed("(%)"), "(\\%)"))) %>%

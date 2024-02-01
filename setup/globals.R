@@ -36,7 +36,7 @@ global_figfontsizesmall <- 10
 
 # year of report
 
-global_year <- 2022
+global_year <- 2023
 global_startdtm <- ymd(paste0(global_year, "-01-01"))
 global_stopdtm <- ymd(paste0(global_year, "-12-31"))
 
