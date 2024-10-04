@@ -26,5 +26,5 @@ library(tableone)
 library(ggplot2)
 library(gridExtra)
 library(ggrepel)
-library(raster) # for map
+library(geodata) # for map
 library(sp) # for map

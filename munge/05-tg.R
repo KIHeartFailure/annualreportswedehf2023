@@ -25,10 +25,10 @@ tgfixfunc <- function(data, tgtype, ncol, totcol, pcol) {
     ) %>%
     select(X1, name, type, typetg, n, tot, p)
 }
-incdata <- tgfixfunc(inc, "Incident",
+incdata <- tgfixfunc(data = inc, tgtype = "Incident",
   ncol = "Antal...2",
-  totcol = "Antal...8",
-  pcol = "%...3"
+  totcol = "Antal...4",
+  pcol = "%"
 )
 prevdata <- tgfixfunc(prev, "Prevalent",
   ncol = "Antal...2",

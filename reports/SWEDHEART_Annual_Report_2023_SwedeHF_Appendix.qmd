@@ -49,7 +49,7 @@ source(here::here("setup/setup.R"))
 
 # load data
 load(here("data/clean-data/rsdata.RData"))
-#load(here("data/clean-data/tg.RData"))
+load(here("data/clean-data/tg.RData"))
 ```           
 
 \clearpage
@@ -83,21 +83,19 @@ https://github.com/KIHeartFailure/swedehf-annualreport-2023.
 
 **Numerator prevalent coverage:** Individuals registered in SwedeHF, 18 years 
 of age at the time, alive as of the first of January of the current year and 
-registered in SwedeHF sometime during the period from the start of the register 
-in 2003 up to and including the end of the December of the year in question. 
-For the years where information about the registration date is available 
-in SwedeHF, i.e. from 2017 onwards, only the registrations received up to and 
-including March 31 of the year following the relevant year are included.
+registered in SwedeHF up to December of the year in question. 
 
-**Denominator prevalent coverage:** Individuals aged 18 and alive on January 1 of the current year, with a registration for heart failure as the main diagnosis (I11.0, I13.0, I13.2, I25.5, I42.0, I42.6, I42.7, I50.0, I50.1, I50.9) in the National Patient Register up to and including the end of December of the year in question. 
+**Denominator prevalent coverage:** Individuals aged 18 and alive on January 1 of the current year, with a registration for heart failure, either in SwedeHF or in the National Patient Register. The definition of heart failure in the National Patient Register is a diagnosis of heart failure (I11.0, I13.0, I13.2, I25.5, I42.0, I42.6, I42.7, I50.0, I50.1, I50.9) in main position twice with at least 14 days between and with $\ge$ 2 of the following medications: ACEI/ARB/ARNI, beta-blockers, MRA or Loop diuretics within $\pm$ 120 days.
 
 *The coverage for `r global_year` is based on non-quality-reviewed data from the National Board of Health and Welfare. The definition of the coverage allows occurrence in SwedeHF after occurrence in the National Patient Register, which means that the coverage is not complete for `r global_year`. The coverage rate for `r global_year` should therefore be considered preliminary.*
 
 **Numerator incident coverage:** Individuals in SwedeHF, over 18 years of age and with first registration during the year in question or with first registration within 1 year of the first heart failure diagnosis in the National Patient Register.
 
-**Denominator incident coverage:** Individuals registered with heart failure (I11.0, I13.0, I13.2, I25.5, I42.0, I42.6, I42.7, I50.0, I50.1, I50.9) for the first time during the current year, either in SwedeHF or in the National Patient Register.
+**Denominator incident coverage:** Individuals registered with heart failure for the first time during the current year, either in SwedeHF or in the National Patient Register. The definition of heart failure in the National Patient Register is a diagnosis of heart failure (I11.0, I13.0, I13.2, I25.5, I42.0, I42.6, I42.7, I50.0, I50.1, I50.9) in main position twice with at least 14 days between and with $\ge$ 2 of the following medications: ACEI/ARB/ARNI, beta-blockers, MRA or Loop diuretics within $\pm$ 120 days. 
 
-WILL BE AVAILABLE IN APRIL.
+{{< include src/tg.qmd >}}
+
+{{< include src/tg_bar.qmd >}}
 
 \clearpage
 

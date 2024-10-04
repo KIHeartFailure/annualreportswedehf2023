@@ -82,6 +82,7 @@ p
 #| cache.comments: false
 #| dependson: fig-regovertime
 #| tbl-cap: !expr paste0("Registration over time, ", global_year - 5, "-", global_year)
+#| tbl-pos: "H"
 
 all <- all %>%
   pivot_wider(names_from = indexyear, values_from = n) %>%

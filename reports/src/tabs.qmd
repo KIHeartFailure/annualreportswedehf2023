@@ -119,6 +119,7 @@ catdig <- 0
 #| cache.comments: false
 #| dependson: varsfortab
 #| tbl-cap: !expr paste0("Patient characteristics, ", global_year)
+#| tbl-pos: "H"
 
 tab <- yearrsdata %>%
   count(ttype, .drop = F) %>%
@@ -202,6 +203,7 @@ default_kable(tab,
 #| cache.comments: false
 #| dependson: varsfortab
 #| tbl-cap: !expr paste0("Patient characteristics by sex, ", global_year)
+#| tbl-pos: "H"
 
 tab <- yearrsdata %>%
   count(ttype, sex, .drop = F) %>%

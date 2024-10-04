@@ -30,42 +30,39 @@ save(file = here("data/clean-data/rsdata.RData"), list = c(
   "rsdata", "qiinfo"
 ))
 
-# 
-# # Coverage ----------------------------------------------------------------
-# 
-# ## Load data
-# tgpath <- "data/raw-data/tg/"
-# 
-# prevtime <- read.xlsx(here(tgpath, "6137_2023 RiksSvikt - TG Prev mot Prev 2010-2022 - Huvuddiagnos 2023-04-05_klar_LB.xlsx"),
-#   sheet = "Län per år"
-# )
-# inctime <- read.xlsx(here(tgpath, "6137_2023 RiksSvikt - TG Inc mot Inc 2003-2021 - Registrering inom 1 år 2023-04-05_klar_LB.xlsx"),
-#   sheet = "Län per år"
-# )
-# prev <- read.xlsx(here(tgpath, "6137_2023 RiksSvikt - TG Prev mot Prev 2010-2022 - Huvuddiagnos 2023-04-05_klar_LB.xlsx"),
-#   sheet = "2022"
-# )
-# inc <- read.xlsx(here(tgpath, "6137_2023 RiksSvikt - TG Inc mot Inc 2003-2021 - Registrering inom 1 år 2023-04-05_klar_LB.xlsx"),
-#   sheet = "2021"
-# )
-# 
-# prev <- prev %>% as_tibble(.name_repair = "unique")
-# inc <- inc %>% as_tibble(.name_repair = "unique")
-# 
-# ## Munge
-# 
-# source(here::here("munge/05-tg.R"))
-# 
-# ## Save data
-# 
-# save(file = here("data/clean-data/tg.RData"), list = c(
-#   "tg", "tg_overtime"
-# ))
-# 
-# # Get map data ------------------------------------------------------------
-# 
-# # swedenmap <- geodata::gadm(country = "SWE", level = 1, path = here("data/raw-data"))
-# swedenmap <- getData("GADM", country = "SWE", level = 1)
-# 
-# ## Save data
-# saveRDS(swedenmap, file = here("data/meta-data/mapdata.rds"))
+
+# Coverage ----------------------------------------------------------------
+
+## Load data
+tgpath <- "data/raw-data/tg/"
+
+prevtime <- read.xlsx(here(tgpath, "111212_2023 RiksSvikt - TG Prev mot Prev 2010-2023 - Inkl Bidiagnos 2024-07-18 Lev4_klar_LB.xlsx"),
+  sheet = "Län per år"
+)
+inctime <- read.xlsx(here(tgpath, "111212_2023 RiksSvikt - TG Inc mot Inc 2006-2022 - Registrering inom 1 år 2024-07-18 Lev4_klar_LB.xlsx"),
+  sheet = "Län per år"
+)
+prev <- read.xlsx(here(tgpath, "111212_2023 RiksSvikt - TG Prev mot Prev 2010-2023 - Inkl Bidiagnos 2024-07-18 Lev4_klar_LB.xlsx"),
+  sheet = "2023"
+)
+inc <- read.xlsx(here(tgpath, "111212_2023 RiksSvikt - TG Inc mot Inc 2006-2022 - Registrering inom 1 år 2024-07-18 Lev4_klar_LB.xlsx"),
+  sheet = "2022"
+)
+
+prev <- prev %>% as_tibble(.name_repair = "unique")
+inc <- inc %>% as_tibble(.name_repair = "unique")
+
+## Munge
+
+source(here::here("munge/05-tg.R"))
+
+## Save data
+
+save(file = here("data/clean-data/tg.RData"), list = c(
+  "tg", "tg_overtime"
+))
+
+# Get map data ------------------------------------------------------------
+
+# swedenmap <- geodata::gadm(country = "SWE", level = 1, path = here("data/raw-data"))
+mapdata <- geodata::gadm("SWE", level = 1, path = "./data/clean-data", version = "latest", resolution = 1)

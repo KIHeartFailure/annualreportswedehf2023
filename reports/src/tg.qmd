@@ -2,7 +2,7 @@
 #| label: fig-tgtime
 #| cache: true
 #| cache.comments: false
-#| fig-cap: !expr paste0("Coverage, 2003-", global_year, " (prevalent)/", global_year -1 , " (incident)")
+#| fig-cap: !expr paste0("Coverage, 2006-", global_year, " (prevalent)/", global_year -1 , " (incident)")
 #| fig-height: 6
 #| fig-width: 10
 
